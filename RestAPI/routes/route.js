@@ -8,6 +8,6 @@ const { welcome, signUp, users, userById } = require("../controller/userControll
 router.get("/", welcome);
 router.post("/signUp", signUp);
 router.get("/users", users);
-router.get("/userById/:userId", userById);
+// router.get("/userById/:userId", userById);
 
 module.exports = router;

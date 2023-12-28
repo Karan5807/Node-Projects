@@ -24,11 +24,24 @@ app.use(express.urlencoded({ extended: true, limit: "20kb" }));
 app.use(cookieParser());
 
 // Using for the Api Call form appRoutes Controllers
-// app.use("/",welcome);
-app.use("/api", appRoutes);
+app.use("/user/welcome", welcome);
+// app.use("/api", appRoutes);
 app.use("/user/users", users);
 app.use("/user/signUp", signUp);
-app.use("/user/userById", userById);
+// app.use("/user/userById/:userId", userById);
+app.get("/user/userById/:userId", async(req,res) => {
+    const userId = req.params.userId;
+    console.log(userId);
+    // if (!mongoose.Types.ObjectId.isValid(userId)) {
+    //     return res.json({ Message: "Invalid User Id" });
+    // }
+    const userData = await User.findById(userId);
+    console.log(userData);
+    if (!userData) {
+        return res.json({ "Error": `No User found with ${userId}` });
+    }
+    return res.json(userData);
+});
 
 
 app.listen(port, () => {
