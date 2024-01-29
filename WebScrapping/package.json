@@ -1,17 +1,22 @@
 {
   "name": "webscrapping",
   "version": "1.0.0",
-  "description": "A Webscrapping using Puppter",
+  "description": "\"WebScrapping of Linkedln and Twitter\"",
+  "keywords": [
+    "Node Js",
+    "Linkedln",
+    "Twitter",
+    "Puppetter",
+    "WebScrapping"
+  ],
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "\"Karan Singh\"",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2",
-    "nodemon": "^3.0.3"
+    "puppeteer": "^21.9.0"
   }
 }
