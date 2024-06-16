@@ -9,26 +9,27 @@ export const welcome = (req, res) => {
 
 // Section for SignUp 
 export const signUp = async (req, res) => {
-    const { userName, email, password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
 
-    const existingUser = await User.findOne({ userName });
+    const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-        res.json({ Message: `${userName} is already Taken` });
+        res.json({ Message: `${email} is already Taken` });
     }
 
     try {
         const hashedPassword = await Bcrypt.hash(password, 10);
         const registerUser = new User({
-            userName: userName,
+            firstName: firstName,
+            lastName: lastName,
             email: email,
             password: hashedPassword
         });
         await registerUser.save();
-        res.json( registerUser );
+        res.status(200).json( registerUser );
     }
     catch (error) {
-        res.json({ "Message": error });
+        res.status(400).json({ "Message": error });
     }
 };
 
@@ -47,15 +48,15 @@ export const users = async (req, res) => {
 
 // Section for get Users by ID
 export const userById = async (req, res) => {
-    const userId = req.params.userId;
-    console.log(userId);
-    if (!Mongoose.Types.ObjectId.isValid(userId)) {
-        return res.json({ Message: "Invalid User Id" });
+    const email = req.params.email;
+    console.log(email);
+    if (!Mongoose.Types.ObjectId.isValid(email)) {
+        return res.json({ Message: "Invalid Email Id" });
     }
-    const userData = await User.findById(userId);
+    const userData = await User.findById(email);
     console.log(userData);
     if (!userData) {
-        return res.json({ "Error": `No User found with ${userId}` });
+        return res.json({ "Error": `No User found with ${email}` });
     }
     return res.json(userData);
     //  catch (error) {

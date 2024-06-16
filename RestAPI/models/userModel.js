@@ -3,22 +3,18 @@ import  Mongoose  from "mongoose";
 // Define a User Schema
 
 const userSchema = new Mongoose.Schema({
-    userName: {
+    firstName: {
         type: String,
         required: true,
-        unique: true,
-        lowercase:true,
-        trim:true
     },
-    userId:{
+    lastName:{
         type: String,
         required: true,
-        unique: true,
     },
     email: {
         type: String,
         required: true,
-        unique:true
+        unique:true,
     },
     password: {
         type: String,
