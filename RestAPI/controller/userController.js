@@ -1,15 +1,14 @@
-const mongoose = require("mongoose");
-const { User } = require("../models/userModel.js");
-const bcrypt = require("bcrypt");
-const saltRounds = process.env.SALT;
+import  Mongoose  from "mongoose";
+import User from "../models/userModel.js";
+import Bcrypt from "bcrypt";
 
 
-const welcome = (req, res) => {
+export const welcome = (req, res) => {
     res.json({ "Tutorial": "Build REST API with node.js with using Bycrpt and JWT Json Web Token" });
 };
 
 // Section for SignUp 
-const signUp = async (req, res) => {
+export const signUp = async (req, res) => {
     const { userName, email, password } = req.body;
 
     const existingUser = await User.findOne({ userName });
@@ -19,7 +18,7 @@ const signUp = async (req, res) => {
     }
 
     try {
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword = await Bcrypt.hash(password, 10);
         const registerUser = new User({
             userName: userName,
             email: email,
@@ -34,7 +33,7 @@ const signUp = async (req, res) => {
 };
 
 // Section for get all users Details
-const users = async (req, res) => {
+export const users = async (req, res) => {
     try {
         const usersData = await User.find();
         if (usersData.length <= 0) {
@@ -44,27 +43,22 @@ const users = async (req, res) => {
     } catch (error) {
         res.json({ "Message": error });
     }
-}
+};
 
 // Section for get Users by ID
-// const userById = async (req, res) => {
-//     const userId = req.params.userId;
-//     console.log(userId);
-//     // if (!mongoose.Types.ObjectId.isValid(userId)) {
-//     //     return res.json({ Message: "Invalid User Id" });
-//     // }
-//     const userData = await User.findById(userId);
-//     console.log(userData);
-//     if (!userData) {
-//         return res.json({ "Error": `No User found with ${userId}` });
-//     }
-//     return res.json(userData);
-//     //  catch (error) {
-//     //     return res.json({ "Message": error });
-//     // }
-// }
-
-
-module.exports = {
-    welcome, signUp, users, 
+export const userById = async (req, res) => {
+    const userId = req.params.userId;
+    console.log(userId);
+    if (!Mongoose.Types.ObjectId.isValid(userId)) {
+        return res.json({ Message: "Invalid User Id" });
+    }
+    const userData = await User.findById(userId);
+    console.log(userData);
+    if (!userData) {
+        return res.json({ "Error": `No User found with ${userId}` });
+    }
+    return res.json(userData);
+    //  catch (error) {
+    //     return res.json({ "Message": error });
+    // }
 }
