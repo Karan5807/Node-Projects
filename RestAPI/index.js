@@ -1,5 +1,4 @@
 import express from "express";
-import Mongoose from "mongoose";
 import Cors from "cors";
 import CookieParser from "cookie-parser";
 import dotenv from "dotenv";
