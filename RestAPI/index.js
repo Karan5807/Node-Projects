@@ -4,6 +4,7 @@ import CookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import ConnectDB from "./services/DBconnection.js";
 import appRoutes from "./routes/userRoute.js";
+import {welcome} from "./controller/userController.js";
 dotenv.config();
 
 
@@ -18,9 +19,7 @@ App.use(express.json({ limit: "1024kb" }));
 App.use(express.urlencoded({ extended: true, limit: "1024kb" }));
 App.use(CookieParser());
 
-App.get("/", (req,res) => {
-    res.send("Hello from server")
-});
+App.get("/", welcome);
 
 // Using for the Api Call form appRoutes Controllers
 App.use("/users", appRoutes);

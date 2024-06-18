@@ -24,7 +24,11 @@ export const signUp = async (req, res) => {
     }
 
     try {
-        const newUserId = await GenrateUserID();
+        let newUserId = await GenrateUserID();
+        const existingUserId = await User.findOne({ newUserId });
+        if(newUserId === existingUserId){
+            newUserId = GenrateUserID();
+        }
         const hashedPassword = await Bcrypt.hash(password, 10);
         const registerUser = new User({
             firstName: firstName,
