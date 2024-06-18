@@ -98,12 +98,12 @@ export const userById = async (req, res) => {
 // Section for Update Users by ID
 export const updateUser = async (req, res) => {
     const userId = req.body._id;
-    const { firstName, lastName } = req.body;
+    const updates = req.body;
     if (!Mongoose.Types.ObjectId.isValid(userId)) {
         return res.json({ Message: `Invalid User Id ${userId}` });
     }
     try {
-        const userData = await User.findByIdAndUpdate(userId);
+        const userData = await User.findByIdAndUpdate(userId, updates, {new:true, runValidators:true});
         if (!userData) {
             return res.json({ "Error": `No User found with ${userId}` });
         }

@@ -8,7 +8,7 @@ Router.get("/", users);
 Router.get("/userById/:userId", userById);
 Router.post("/signUp", signUp);
 Router.post("/login", login);
-Router.patch("/updateUser", updateUser);
+Router.put("/updateUser", updateUser);
 Router.delete("/deletUser", deletUser);
 
 
